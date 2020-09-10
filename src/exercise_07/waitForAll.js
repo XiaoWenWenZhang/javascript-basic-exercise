@@ -1,3 +1,5 @@
+/* eslint-disable no-plusplus */
+/* eslint-disable no-loop-func */
 export default function waitForAll(...promises) {
   // This function returns a promise which will be triggered when all the `promises` are completed.
   //
@@ -9,5 +11,25 @@ export default function waitForAll(...promises) {
   // * Please implement this function and pass all the tests in wait_for_all_spec.js.
   // * Please do NOT modify the signature of the function.
 
-  throw new Error('Please delete this line and implement the function');
+  if (promises.some(itm => !(itm instanceof Promise))) {
+    throw new Error('Not all elements are promises.');
+  }
+
+  return new Promise((resolve, reject) => {
+    let counter = 0;
+    for (let i = 0; i < promises.length; i += 1) {
+      promises[i].then(() => {
+        counter++;
+        if (counter === promises.length) {
+          resolve();
+        }
+      },
+      () => {
+      }).finally(() => {
+        if (i === promises.length - 1 && counter !== promises.length) {
+          reject();
+        }
+      });
+    }
+  });
 }

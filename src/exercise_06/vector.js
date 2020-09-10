@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 export default class Vector {
   // This class represents a 2-dimensional vector. Please implement the class according to the
   // following instructions:
@@ -13,4 +14,28 @@ export default class Vector {
   // class.
 
   // PLEASE DELETE THIS LINE AND ADD YOUR IMPLEMENTATION HERE
+  constructor(x, y) {
+    this.xx = x;
+    this.yy = y;
+  }
+
+  get x() {
+    return this.xx;
+  }
+
+  get y() {
+    return this.yy;
+  }
+
+  static plus(vector1, vector2) {
+    return new Vector(vector1.x + vector2.x, vector1.y + vector2.y);
+  }
+
+  static minus(vector1, vector2) {
+    return new Vector(vector1.x - vector2.x, vector1.y - vector2.y);
+  }
+
+  distance() {
+    return Math.hypot(this.x, this.y);
+  }
 }
